@@ -92,7 +92,8 @@ public class MyCollection<E> implements Collection<E> {
     public final boolean removeAll(final Collection<?> c) {
         boolean result = false;
         for (Object o : c) {
-            if (remove(o)) {
+            while (contains(o)) {
+                remove(o);
                 result = true;
             }
         }
@@ -154,6 +155,7 @@ public class MyCollection<E> implements Collection<E> {
                 size--;
                 elementData[size] = null;
                 cursor--;
+                checkRemove = false;
             } else {
                 throw new IllegalStateException();
             }
